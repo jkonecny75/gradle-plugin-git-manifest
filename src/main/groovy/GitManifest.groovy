@@ -11,9 +11,11 @@ class GitManifestPlugin implements Plugin<Project> {
         def extension = project.extensions.create('gitManifest', GitManifestPluginExtension)
         // Add a task that uses configuration from the extension object
         project.task('gitManifestHelp') {
-            doLast {
-                println extension.fileName
-            }
+          group = 'GIT manifest.xml - @YSOFT'
+          description = "Clone and check out all GIT repositories which constitute this project in ${extension.fileName}"
+          doLast {
+            println extension.fileName
+          }
         }
     }
 }

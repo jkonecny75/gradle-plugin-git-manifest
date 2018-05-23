@@ -15,6 +15,15 @@ plugins {
 group = 'org.git'
 description = 'Git manifest plugins for Gradle.'
 
+
+
+/*
+pluginBundle { 
+    website = 'www.ysoft.com'
+    vcsUrl = 'https://jkonecny@stash.ysoft.local/scm/~jkonecny/gradle-plugin-git-manifest.git'
+}
+*/
+
 // Apply the groovy plugin to add support for Groovy
 apply plugin: 'groovy'
 
