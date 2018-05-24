@@ -6,23 +6,33 @@
  * user guide available at https://docs.gradle.org/3.4.1/userguide/tutorial_groovy_projects.html
  */
 
-/*
+
 plugins {
-  id "org.ajoberstar.grgit" version "2.2.0"
+    id 'com.gradle.plugin-publish' version '0.9.7' 
 }
-*/
+
 
 group = 'org.git'
 description = 'Git manifest plugins for Gradle.'
+version = '0.1-alpha'
 
 
 
-/*
-pluginBundle { 
-    website = 'www.ysoft.com'
-    vcsUrl = 'https://jkonecny@stash.ysoft.local/scm/~jkonecny/gradle-plugin-git-manifest.git'
+pluginBundle {
+    website     = 'https://github.com/x/y'
+    vcsUrl      = 'https://github.com/x/y/pokus.git'
+
+    plugins {
+        gradletestPlugin {
+            id = 'org.pokus.first'
+            displayName = 'My first testing plugin'
+            description = 'Testing publising of plugin'
+            tags = ['testing','git']
+        }
+    }
 }
-*/
+
+
 
 // Apply the groovy plugin to add support for Groovy
 apply plugin: 'groovy'
