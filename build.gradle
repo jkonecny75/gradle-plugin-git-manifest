@@ -34,9 +34,14 @@ repositories {
     jcenter()
 }
 
+configurations {
+    // use local groovy
+    all*.exclude group: 'org.codehaus.groovy', module: 'groovy-all'
+}
+
 dependencies {
-    // Use the latest Groovy version for building this library
-    compile 'org.codehaus.groovy:groovy-all:2.4.15'
+    // Use the local Groovy version for building this library
+    compile localGroovy()
 
     compile gradleApi()
 
