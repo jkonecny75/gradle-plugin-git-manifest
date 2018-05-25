@@ -1,6 +1,10 @@
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
+class Global {
+    static GROUP = 'Gradle Git manifest.xml'
+}
+
 class GitManifestPluginExtension {
     String fileName = 'manifest.xml'
 }
@@ -11,14 +15,14 @@ class GitManifestPlugin implements Plugin<Project> {
         def extension = project.extensions.create('gitManifest', GitManifestPluginExtension)
         // Add a task that uses configuration from the extension object
         project.task('gitManifestHelp') {
-          group = 'GIT manifest.xml - @YSOFT'
-          description = "Clone and check out all GIT repositories which constitute this project in ${extension.fileName}"
+            group = Global.GROUP
+            description = "manifest file = ${extension.fileName}"
           doLast {
             println extension.fileName
           }
         }
        project.task('prepareSources') {
-          group = 'GIT manifest.xml - @YSOFT'
+          group = Global.GROUP
           description = 'Clone and check out all GIT repositories which constitute this project in "manifest.xml"'
 
           doLast {
