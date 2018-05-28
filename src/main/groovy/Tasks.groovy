@@ -43,7 +43,7 @@ Properties:
                 def parsedProjectXml = new XmlParser().parse(project.file(extension.fileName))
                 parsedProjectXml.projects.project.each { p ->
                     println "Preparing >> source: " + p.@name + ", version : " + p.@revision
-                    def dir = project.file("sources/${p.@path}")
+                    def dir = project.file(extension.sourcesDirName + File.separator + p.@path)
                     if (!dir.exists()) {
                         dir.mkdirs()
                         project.exec {
@@ -51,7 +51,7 @@ Properties:
                             def gitCommand = ['git', 'clone', '-v', '--progress', baseURL + '/' + p.@name, p.@path]
                             println gitCommand
                             def stdout = new ByteArrayOutputStream()
-                            workingDir project.file('sources')
+                            workingDir project.file(extension.sourcesDirName)
                             commandLine gitCommand
                             standardOutput = stdout
                             println stdout.toString().trim()
@@ -82,7 +82,7 @@ Properties:
                 def parsedProjectXml = new XmlParser().parse(project.file(extension.fileName))
                 parsedProjectXml.projects.project.each { p ->
                     println "Cleaning >> source: " + p.@name + ", version : " + p.@revision
-                    def dir = project.file("sources/${p.@path}")
+                    def dir = project.file(extension.sourcesDirName + File.separator + p.@path)
                     if (dir.exists()) {
                         dir.deleteDir()
                     } else {

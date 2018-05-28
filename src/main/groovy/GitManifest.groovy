@@ -11,6 +11,7 @@ class Global {
 
 class GitManifestPluginExtension {
     String fileName = 'manifest.xml'
+    String sourcesDirName = 'sources'
 }
 
 @CompileStatic
