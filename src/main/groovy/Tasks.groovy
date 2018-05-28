@@ -15,6 +15,11 @@ class Tasks {
     }
 
     def addTasks() {
+        addTaskGitManifestHelp()
+        addTaskPrepareSources()
+    }
+
+    private addTaskGitManifestHelp() {
         project.task('gitManifestHelp') {
             group = Global.GROUP
             description = "Show quick guide"
@@ -26,12 +31,15 @@ Properties:
                 """
             }
         }
+    }
+
+    private addTaskPrepareSources() {
         project.task('prepareSources') {
             group = Global.GROUP
             description = 'Clone and check out all GIT repositories which constitute this project in "manifest.xml"'
 
             doLast {
-                def parsedProjectXml = new XmlParser().parse(project.file('manifest.xml'))
+                def parsedProjectXml = new XmlParser().parse(project.file(extension.fileName))
                 parsedProjectXml.projects.project.each { p ->
                     println "Preparing >> source: " + p.@name + ", version : " + p.@revision
                     def dir = project.file("sources/${p.@path}")
