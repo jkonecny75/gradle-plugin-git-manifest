@@ -17,6 +17,7 @@ class Tasks {
     def addTasks() {
         addTaskGitManifestHelp()
         addTaskPrepareSources()
+        addTaskCleanSources()
     }
 
     private addTaskGitManifestHelp() {
@@ -66,6 +67,26 @@ Properties:
                         commandLine gitCommand
                         standardOutput = stdout
                         println stdout.toString().trim()
+                    }
+                }
+            }
+        }
+    }
+
+    private addTaskCleanSources() {
+        project.task('cleanSources') {
+            group = Global.GROUP
+            description = 'Clean all GIT repositories which constitute this project in "manifest.xml"'
+
+            doLast {
+                def parsedProjectXml = new XmlParser().parse(project.file(extension.fileName))
+                parsedProjectXml.projects.project.each { p ->
+                    println "Cleaning >> source: " + p.@name + ", version : " + p.@revision
+                    def dir = project.file("sources/${p.@path}")
+                    if (dir.exists()) {
+                        dir.deleteDir()
+                    } else {
+                        println "The source ${dir} has no cloned !"
                     }
                 }
             }
