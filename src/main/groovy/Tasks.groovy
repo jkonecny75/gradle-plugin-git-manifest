@@ -4,9 +4,17 @@
 
 import org.gradle.api.Project
 
+
 class Tasks {
-    static void addTasks(Project project) {
-// Add a task that uses configuration from the extension object
+    GitManifestPluginExtension extension
+    Project project
+
+    Tasks(Project _p) {
+        this.project = _p
+        this.extension = (GitManifestPluginExtension) project.extensions.findByName('gitManifest')
+    }
+
+    def addTasks() {
         project.task('gitManifestHelp') {
             group = Global.GROUP
             description = "Show quick guide"
@@ -14,7 +22,7 @@ class Tasks {
                 println """
 TODO
 Properties:
-- manifest file = ${project.extensions.findByName('gitManifest').fileName}
+- manifest file = ${extension.fileName}
                 """
             }
         }

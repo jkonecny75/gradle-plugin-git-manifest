@@ -1,3 +1,5 @@
+import groovy.transform.CompileStatic
+import groovy.transform.Field
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -11,7 +13,9 @@ class GitManifestPluginExtension {
     String fileName = 'manifest.xml'
 }
 
+@CompileStatic
 class GitManifestPlugin implements Plugin<Project> {
+
     void apply(Project project) {
         // Add the 'gitManifest' extension object
         def extension = project.extensions.create('gitManifest', GitManifestPluginExtension)
@@ -19,7 +23,7 @@ class GitManifestPlugin implements Plugin<Project> {
         if (GradleVersion.current() < GradleVersion.version('3.0')) {
             throw new GradleException('GradleGitManifest requires Gradle 3.0 or later')
         } else {
-            Tasks.addTasks(project)
+            new Tasks(project).addTasks()
         }
     }
 }
