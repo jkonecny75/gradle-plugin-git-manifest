@@ -8,26 +8,22 @@
 
 
 plugins {
-    id 'com.gradle.plugin-publish' version '0.9.7' 
+    id 'com.gradle.plugin-publish' version '0.9.10'
 }
 
-
-group = 'org.git'
-description = 'Git manifest plugins for Gradle.'
 version = '0.1-alpha'
-
-
+group = 'com.github.jkonecny75'
 
 pluginBundle {
-    website     = 'https://github.com/x/y'
-    vcsUrl      = 'https://github.com/x/y/pokus.git'
+    website = 'https://github.com/jkonecny75/gradle-plugin-git-manifest/wiki'
+    vcsUrl  = 'https://github.com/jkonecny75/gradle-plugin-git-manifest'
+    description = 'Gradle alternative to Android repo tool (multi source GIT repositories)'
+    tags = ['git', 'android']
 
     plugins {
-        gradletestPlugin {
-            id = 'org.pokus.first'
-            displayName = 'My first testing plugin'
-            description = 'Testing publising of plugin'
-            tags = ['testing','git']
+        gradleGitManifestPlugin {
+            id = 'org.scm.git-manifest'
+            displayName = 'GGM - Gradle Git Manifest plugin'
         }
     }
 }
