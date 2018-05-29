@@ -23,12 +23,16 @@ class Tasks {
     private addTaskGitManifestHelp() {
         project.task('gitManifestHelp') {
             group = Global.GROUP
-            description = "Show quick guide"
+            description = "Displays quick guide"
+
             doLast {
                 println """
 TODO
 Properties:
-- manifest file = ${extension.fileName}
+- manifest file name = ${extension.fileName}
+- sources dir name = ${extension.sourcesDirName}
+
+see https://github.com/jkonecny75/gradle-plugin-git-manifest
                 """
             }
         }
@@ -42,14 +46,14 @@ Properties:
             doLast {
                 def parsedProjectXml = new XmlParser().parse(project.file(extension.fileName))
                 parsedProjectXml.projects.project.each { p ->
-                    println "Preparing >> source: " + p.@name + ", version : " + p.@revision
+                    println ">> preparing source:\n- name: ${p.@name}\n- version: ${p.@revision}"
                     def dir = project.file(extension.sourcesDirName + File.separator + p.@path)
                     if (!dir.exists()) {
                         dir.mkdirs()
                         project.exec {
                             def baseURL = parsedProjectXml.remotes.remote.find { r -> r.@name == p.@remote }.@fetch
                             def gitCommand = ['git', 'clone', '-v', '--progress', baseURL + '/' + p.@name, p.@path]
-                            println gitCommand
+                            println gitCommand.join(' ')
                             def stdout = new ByteArrayOutputStream()
                             workingDir project.file(extension.sourcesDirName)
                             commandLine gitCommand
@@ -61,7 +65,7 @@ Properties:
                     }
                     project.exec {
                         def gitCommand = ['git', 'checkout', p.@revision]
-                        println gitCommand
+                        println gitCommand.join(' ')
                         def stdout = new ByteArrayOutputStream()
                         workingDir dir
                         commandLine gitCommand
@@ -81,7 +85,7 @@ Properties:
             doLast {
                 def parsedProjectXml = new XmlParser().parse(project.file(extension.fileName))
                 parsedProjectXml.projects.project.each { p ->
-                    println "Cleaning >> source: " + p.@name + ", version : " + p.@revision
+                    println ">> cleaning source:\n- name: ${p.@name}\n- version: ${p.@revision}"
                     def dir = project.file(extension.sourcesDirName + File.separator + p.@path)
                     if (dir.exists()) {
                         dir.deleteDir()
