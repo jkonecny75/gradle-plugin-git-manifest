@@ -11,7 +11,7 @@ plugins {
     id 'com.gradle.plugin-publish' version '0.9.10'
 }
 
-version = '0.2-alpha'
+version = '0.3-alpha'
 group = 'com.github.jkonecny75'
 
 pluginBundle {

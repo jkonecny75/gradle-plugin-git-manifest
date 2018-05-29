@@ -21,8 +21,8 @@ class GitManifestPlugin implements Plugin<Project> {
         // Add the 'gitManifest' extension object
         def extension = project.extensions.create('gitManifest', GitManifestPluginExtension)
 
-        if (GradleVersion.current() < GradleVersion.version('3.0')) {
-            throw new GradleException('GradleGitManifest requires Gradle 3.0 or later')
+        if (GradleVersion.current() < GradleVersion.version('2.0')) {
+            throw new GradleException('GradleGitManifest requires Gradle 2.0 or later')
         } else {
             new Tasks(project).addTasks()
         }
