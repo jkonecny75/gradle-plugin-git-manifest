@@ -11,14 +11,14 @@ plugins {
     id 'com.gradle.plugin-publish' version '0.9.10'
 }
 
-version = '0.1-alpha'
+version = '0.2-alpha'
 group = 'com.github.jkonecny75'
 
 pluginBundle {
     website = 'https://github.com/jkonecny75/gradle-plugin-git-manifest/wiki'
     vcsUrl  = 'https://github.com/jkonecny75/gradle-plugin-git-manifest'
     description = 'Gradle alternative to Android repo tool (multi source GIT repositories)'
-    tags = ['git', 'android']
+    tags = ['git', 'android', 'yocto']
 
     plugins {
         gradleGitManifestPlugin {
@@ -46,11 +46,10 @@ configurations {
 }
 
 dependencies {
-    // Use the local Groovy version for building this library
-    compile localGroovy()
-
     compile gradleApi()
 
+    // Use the local Groovy version for building this library
+    compile localGroovy()
 
     // Use the awesome Spock testing and specification framework
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
